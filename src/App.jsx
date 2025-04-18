@@ -2,10 +2,10 @@ import React from "react";
 import "./index.css";
 
 //Rus
-// 1 - Создать компонент <Card/>, который вложить в <CardContainer/>.
-// 2 - Создать компоненты <CardTag/>, которые вложить в <Card/>
-// 3 - Передать данные из объекта cardData в компонент <Card/> от компонента <CardContainer/> через пропсы вручную.
-// 4 - Передать данные тегов из объекта cardData в компоненты <CardTag/> от компонента <Card/> через пропсы вручную.
+// 1 - Создать компонент <Card/>, который вложить в <CardContainer/>. +++
+// 2 - Создать компоненты <CardTag/>, которые вложить в <Card/> +++++
+// 3 - Передать данные из объекта cardData в компонент <Card/> от компонента <CardContainer/> через пропсы вручную. +++
+// 4 - Передать данные тегов из объекта cardData в компоненты <CardTag/> от компонента <Card/> через пропсы вручную. +++
 
 //Eng
 // 1 - Create a <Card/> component and nest it within <CardContainer/>.
@@ -65,41 +65,40 @@ const cardData = [
   },
 ];
 
-function CardTag(props) {
-  const {name} = props;
+export default function CardContainer() {
+  const { title, description, date, imageUrl, tags } = cardData[0];
 
-  return <li className="card-tag">{name}</li>;
+  return (
+    <div className="card-container">
+      <Card
+        title={title}
+        imageUrl={imageUrl}
+        description={description}
+        date={date}
+        tags={tags}
+      />
+    </div>
+  );
 }
 
 function Card(props) {
-  const { title, description, date, imageUrl, tags } = props;
+  const { title, imageUrl, description, date, tags } = props;
 
   return (
     <div className="card">
-      <img className="card-image" src={imageUrl} alt={title} />
+      <img src={imageUrl} className="card-image" alt={title} />
       <div className="card-content">
-        <h3 className="card-title">{title}</h3>
+        <div className="card-title">{title}</div>
         <p className="card-description">{description}</p>
-        <span className="card-date">{date}</span>
-        <ul className="card-tags">
-          <CardTag name="#финтех" />
-          <CardTag name="#международный" />
-          <CardTag name="#рынок" />
-        </ul>
+        <p className="card-date">{date}</p>
+        <CardTag name={tags[0]} />
+        <CardTag name={tags[1]} />
+        <CardTag name={tags[2]} />
       </div>
     </div>
   );
 }
 
-export default function CardContainer() {
-  return (
-    <div className="card-container">
-      <Card
-        title="Мокка"
-        description="Развиваем финтех-продукт для международного рынка"
-        date="24 апреля 2024"
-        imageUrl="/img-1.jpeg"
-      />
-    </div>
-  );
+function CardTag(props) {
+  return <span className="card-tag">{props.name}</span>;
 }
